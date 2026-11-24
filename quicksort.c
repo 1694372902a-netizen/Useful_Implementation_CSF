@@ -1,5 +1,4 @@
 #include <menu.h>
-// love temari tsukimura
 
 void swap( int *num_1, int *num_2 ){
 
@@ -11,40 +10,53 @@ void swap( int *num_1, int *num_2 ){
     *num_2 = temp;
 }
 
-// the oblivion of one's sadness
-int partition( int **arr, int low, int high){
+int partition( int **arr, int low, int high ){
 
-    int pivot = arr[low];
+    int pivot = low;
+    
+    // note:
+    // low is inclusive; high is exclusive.
 
-    // inclusive
-    int i = low;
-
-    // exclusive
+    int i = low - 1;
     int j = high;
 
-    while ( i < j ){
-        
-        //first element that's strictly larger than the pivot, from start
-        while ( (*arr)[i] <= p && i <= high - 1){
+    while ( true ){
+
+        // note:
+        // to find the index of the first element that's larger than pivot and first smaller than pivot
+
+        // worst case, always itself
+        do{
             i++;
-        }
-        
-        //first element that's strictly smaller than the pivot, from end
-        while( (*arr)[j] > p && j >= low + 1 ){
+        } while ( (*arr)[i] < pivot );
+
+        // worst case, always itself
+        do{
             j--;
+        } while ( (*arr)[j] > pivot );
+
+        if ( i >= j ){
+            return j;
         }
 
-        // now i stores the index of the first element that's larger than the pivot
-        // j stores the first element that's smaller than the pivot, the index
-
-        // check if i's on the left of j
-        if ( i < j ){
-            swap( &arr[i], &arr[j] );
-        }
-
-
-
-
+        swap ( &(*arr)[i], &(*arr)[j] );
 
     }
+
+}
+
+void quick_sort( int **arr, int low, int high ){
+
+    //officially add up everything
+
+    if ( low > high ){
+        perror( "invalid input" );
+        return;
+    }
+
+    int pivot = partition( *arr, low, high);
+
+    quick_sort( *arr, low, pivot - 1);
+    quick_sort( *arr, pivot + 1, high);
+
 }

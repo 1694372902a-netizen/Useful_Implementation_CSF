@@ -1,13 +1,10 @@
 #include <menu.h>
 
+void swap( int *num_1, int *num_2 );
+
 int main(){
 
-    int i = 0;
-
-    while ( i < 10 ){
-        printf("%d\n", i)
-        i++;
-    }
 
     return 0;
+
 }
