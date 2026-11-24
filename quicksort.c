@@ -12,25 +12,22 @@ void swap( int *num_1, int *num_2 ){
 
 int partition( int **arr, int low, int high ){
 
-    int pivot = low;
-    
+    int pivot = (*arr)[low];
+
     // note:
-    // low is inclusive; high is exclusive.
+    // both low and high are included indices.
 
     int i = low - 1;
-    int j = high;
+    int j = high + 1;
 
     while ( true ){
 
-        // note:
-        // to find the index of the first element that's larger than pivot and first smaller than pivot
-
-        // worst case, always itself
+        // find the first element >= pivot
         do{
             i++;
         } while ( (*arr)[i] < pivot );
 
-        // worst case, always itself
+        // find the first element <= pivot
         do{
             j--;
         } while ( (*arr)[j] > pivot );
@@ -47,16 +44,15 @@ int partition( int **arr, int low, int high ){
 
 void quick_sort( int **arr, int low, int high ){
 
-    //officially add up everything
+    // officially add up everything
 
-    if ( low > high ){
-        perror( "invalid input" );
+    if ( low >= high ){
         return;
     }
 
-    int pivot = partition( *arr, low, high);
+    int boundary = partition( arr, low, high );
 
-    quick_sort( *arr, low, pivot - 1);
-    quick_sort( *arr, pivot + 1, high);
+    quick_sort( arr, low, boundary );
+    quick_sort( arr, boundary + 1, high );
 
 }
